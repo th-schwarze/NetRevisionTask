@@ -28,7 +28,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       
-    - name: Push generated package to GitHub registry
+    - name: Push generated package to GitHub registry#1
       run: dotnet nuget push ./NetRevisionTask/bin/{Debug,Release}/*.nupkg --source https://nuget.pkg.github.com/th-schwarze --api-key ${GITHUB_TOKEN} --skip-duplicate --no-symbols true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
