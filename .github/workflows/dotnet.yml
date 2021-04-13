@@ -20,6 +20,7 @@ jobs:
         source-url: https://nuget.pkg.github.com/th-schwarze/index.json
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -28,4 +29,6 @@ jobs:
       run: dotnet test --no-build --verbosity normal
       
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./NetRevisionTask/bin/{Debug,Release}/*.nupkg --skip-duplicate --no-symbols true
+      run: dotnet nuget push ./NetRevisionTask/bin/{Debug,Release}/*.nupkg -k ${GITHUB_TOKEN} --skip-duplicate --no-symbols true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
